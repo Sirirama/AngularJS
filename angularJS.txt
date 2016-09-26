@@ -191,9 +191,9 @@ In the above snippet code, message is a simple property. You can also attach a c
 Within the view, we can then retrieve the employee object's properties and display them in the view as shown below.
         
         <div ng-controller = "myController">
-            <p>First Name: {{employee.firstName}}</p>
-            <p>Last Name: {{employee.lastName}}</p>
-            <p>Gender: {{employee.gender}}</p>
+            <div>First Name: {{employee.firstName}}</div>
+            <div>Last Name: {{employee.lastName}}</div>
+            <div>Gender: {{employee.gender}}</div>
         </div>
 
 2. What happens if the controller name is mis-spelled ?
