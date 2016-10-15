@@ -403,3 +403,47 @@ AngularJS filters for formatting data
 
     Syntax: 
     -------         {{expression | limitTo : limit : begin}}
+
+Part - 9                                                        (14th Oct 2016)
+--------
+                        Sorting Data in AngularJS
+                        -------------------------
+In this we will discuss how to implement sorting data in AngularJS.
+
+The orderBy filter allows us to sort an array. By default, strings are sorted alphabetically and numbers are sorted numerically.
+
+To sort the data in Angular
+    1. Use orderBy filter
+
+        {{ array | orderBy : expression : reverse }}
+
+        Example: ng-repeat = "student in studentData | orderBy : 'age' : false"
+
+    2. To sort data in ascending order, set reverse to false.
+    3. To sort data in descending order, set reverse to true.
+    4. We can also use + and - symbols to sort in ascending and descending
+    order respectively.
+
+    Example: ng-repeat = "student in studentData | orderBy : '-age'"
+
+Part - 10                      (h2Angular.html)                    (14th Oct 2016)
+---------
+                        AngularJS sort rows by table header
+                        -----------------------------------
+
+Here we will implement
+1. AngularJS sort by column headers.
+2. AngularJS bidirectional sort.
+
+Part - 11                                                  (14th Oct 2016)
+---------
+                        Search filter in AngularJS
+                        --------------------------
+How to implement search the data in AngularJS using search filter.
+
+As we type in the search textbox, all the columns in the table must be searched and only the matching rows should be displayed.
+
+Example: <tr ng-repeat="student in studnets | filter: searchBoxText">
+            <td>...</td>
+         </tr>
+
