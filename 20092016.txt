@@ -447,3 +447,107 @@ Example: <tr ng-repeat="student in studnets | filter: searchBoxText">
             <td>...</td>
          </tr>
 
+Part - 12                                                  (15th Oct 2016)
+---------
+                        Multiple Search in AngularJS using filters
+                        ------------------------------------------
+If user wants to search the data in particular column from the table using
+filters, we can write something like this
+
+<input type="text" ng-model="searchBoxText.name" />
+-----
+-----
+-----
+    <tr ng-repeat="student in students | filter: searchBoxText">
+        <td>...</td>
+    </tr>
+
+This is the single column data search in the table.
+
+If user wants to search the data in more than one column from the table using
+filters, we can write the code something like this.
+
+<input type="text" ng-model="searchBotText.name" />
+<input type="text" ng-model="searchBoxText.age" />
+-----
+-----
+-----
+    <tr ng-repeat="student in students | filter: searchBoxText">
+        <td>...</td>
+    </tr>
+
+We can write our own custom search function in AngularJS. To do this we can
+write the code something like this.
+
+<input type="text" ng-model="searchBoxText" />
+----
+----
+----
+    <tr ng-repeat="student in students | filter: searchBoxText : search">
+        <td>...</td>
+    </tr>
+
+    Here we are passing the search value either true or false from the custom
+    search function. If the value is true, rows show up else no matching to the
+    entered data and no rows to be displayed.
+
+    js:
+    --
+        $scope.search = function (item) { 
+            if ($scope.searchBoxText === undefined) {
+                return true;
+            }
+            else {
+                if ((item.name.toLowerCase().indexOf($scope.searchBoxText.name.toLowerCase()) != -1) || 
+                (item.gender.toLowerCase().indexOf($scope.searchBoxText.gender.toLowerCase()) != -1) ) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+Part - 13                                   (15th Oct 2016)
+---------
+            Create Custom Filters in AngularJS
+            ----------------------------------
+
+We took a look at some of the built-in Angular filters. The built-in filters
+cover many common use cases including formatting dates, currencies, limiting
+the number of items displayed and more. These filters are both useful and give 
+insights into how we may improve our work flow when building Angular apps.
+
+We can build our own custom filters in AngularJS with the help of angular
+object's filter () function.
+
+    // To declare a filter we pass in two parameters to app.filter
+
+    // The first parameter is the name of the filter 
+    // second is a function that will return another function that does the actual work of the filter
+
+    app.filter('myFilter', function() {
+                |
+                -----> Name of the custom filter used in html page.
+
+        // In the return function, we must pass in a single parameter which will be the data we will work on.
+        // We have the ability to support multiple other parameters that can be passed into the filter optionally
+    
+        return function(input, optional1, optional2) {
+                         |
+                         -----> Input value passing from html page.
+            var output;
+            // Do filter work here
+            return output;
+        }
+
+    });
+
+    HTML:
+    -----
+
+        <td>
+                                    ------> Name of the custom filter name passing as first parameter to the filter function.
+                                    |
+            {{employee.status | myFilter:optional1:optional2}}
+                |
+                ---> This is the input value passing into the return function.
+        </td>
