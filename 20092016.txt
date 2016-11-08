@@ -1,0 +1,553 @@
+Part-1 AngularJS
+================
+
+What is AngularJS ?
+AngularJS is a JavaScript framework, that helps build applications that run in a web browser.
+
+Who developed AngularJS ?
+Google is the company that developed AngularJS. It is an open source project which means it can be freely used, changed, and shared by anyone.
+
+AngularJS is an excellent framework for building both Single Page Applications (SPA) and Line of Business Applications. Many companies are using Angular today, and there are many public facing web sites that are built with Angular.
+
+There is a website, "https://www.madewithangular.com, that has the list of web sites that are built using AngularJS. Within this list you can find many popular websites.
+
+What are the benefits of using AngularJS ?
+    1. Dependency Injection : Dependency Injection is something AngularJS does quite well.
+    2. Two Way Data-Binding : One of the important feature in AngularJS is the Two Way Data-Binding. The Two Way Data-Binding, keeps the model and view in sync at all times, that is a change in model updates the view and a change in view updates the model. ( Model <==> View )
+    3. Testing: Testing is an area where Angular really shines. Angular is designed with testing in mind right from the start. Angular makes it very easy to test any of it's components through both unit testing and end-to-end testing. So there's really no excuse for not testing any of you angular application code.
+    4. Model-View-Controller: With angular it is very easy to develop application in a clean MVC way. All you have to do is split your application code into MVC components and connecting them together is done by Angular automatically.
+    5. Many more benefits like controlling the behavior of DOM elements using directives and the flexibility that angular filters provide.
+
+We will discuss directives, filters, Modules and Routes etc.. with examples.
+
+To build angular applications you only need one script file and that is angular.js.
+
+To get the script file visit https://angularjs.org.
+
+To get started with angular
+    1. Add a reference to the angular script. <script type="text/javascript" language="javascript" src="js/angular.min.js"></script>.
+    2. Include ng-app attribute.
+
+What is ng-app ?
+In angular, ng-app is called a directive. There are many directives in angular. The ng prefix in directive stands for angular. The ng-app directive is a starting point of AngularJS application. AngularJS will first check for ng-app directive in HTML page after the entire page is loaded. If ng-app directive is found angular bootstrap itself and starts to manage the section of the page that has the ng-app directive.
+
+So obviously next question is, where to place the ng-app directive on the page.
+It should be placed at the root of the HTML document, that is at the <html> tag level or at the <body> tag level, so that angular can control the entire page.
+However there is nothing stop you from placing it on any other HTML element within in the page. When you do this only that element and it's children are managed by angular.
+
+Double curly braces are called data binding expressions in angular.
+
+All the following are valid expressions in angular.
+
+{{ 1 == 1}} // Evaluates to true
+
+{{ {name: 'Rama', age: 29}.name }} // Returns the name property value as Rama
+
+{{ ['Siri', 'Chandana', 24][1] }} // Returns the first element of the array.
+
+Part-2 AngularJS
+================
+In this lesion we will discuss below concepts.
+1. What is a module in Angular ?
+2. Why module is used in Angular ?
+3. How to create a module in our application ?
+4. What is a controller in Angular ?
+5. How to create a controller ?
+6. How to register a controller with the module ?
+7. How to use the module that we created to bootstrap the angular application ?
+
+What is a module in angular ?
+
+    A module is a container for different parts of your application i.e.,
+controllers, services, filters, directives, etc..,
+
+Why module is used in angular ?
+
+    You can think of module as a Main() method in other types of applications (like C, JAVA, etc.,) For example Java application has a Main () method which is entry point into the application. Main() is the responsibility of the application and it wires together the different parts of the application.
+
+Modules are the angular application's equivalent of the Main () method.Modules declaratively specify how the angular application should be bootstrapped.
+
+There are several benefits of the modular approach.It may be difficult to comprehend all those benefits right now, So we will defer the discussion of the benefits to a later video.
+
+How to create a module ?
+
+    Creating a module in angular is straight forward. Use the angular object's module() method to create a module. The angular object is provided by angular framework. The following example, creating a module.
+
+    var myApp = angular.module("myModule", []);
+
+    We have to associate this myModule module as first parameter to ng-app directive in HTML document ( <body ng-app = "myModule"> )
+
+    The first parameter specifies the name of the module.
+    The second parameter specifies the dependencies for this module.
+
+    A module can dependent on other modules. We will discuss an example of module dependencies in later. Right now, the module that we are not creating any dependent on any other external modules. So I am passing an empty array as the value for the second parameter.
+
+What is a controller in angular ?
+
+    In angular, a controller is a JavaScript construct function. The job of the controller is to build a model for the view to display. The model is nothing but the data. In a real world application, the controller may call into web service to retrieve data from the data base for the view to display.
+
+How to create a controller in angular ?
+    Simple, create a JavaScript constructor function ( Anonymous function )
+
+    var myCtrl = function ($scope) { // pass the $scope object as a parameter
+        $scope.name = "AngularJS"; // we attach the name property to $scope object as model
+    }
+
+    Note: Anonymous function is a function definition stored in a variable. They are always invoked (calling) using the variable name.
+
+    myApp.controller ("myController", myCtrl); (or)
+
+    From the above code we are created unnecessary variable call myCtrl. Instead of writing above code, we can write below as well.
+    
+    myApp.controller ("myController", function ($scope){
+        $scope.name = "AngularJS"; // This name property will be available in view
+    });
+
+    We have to associate this controller (myController) to ng-controller directive in HTML document. (ng-controller = "myController")
+
+How to register the controller with the module ?
+
+    Use the module object's controller function to register the controller with the module.
+
+    myApp.controller('myController', myCtrl);
+
+    Here is the complete code.
+
+    // Create a module with the help of angular object's module () method.
+    
+    var myApp = angular.moduel('myModule', []);
+
+    // Create a controller by using anonymous function
+
+    var myCtrl = function ($scope) {
+        $scope.name = "AngularJS";
+    }
+
+    // Register the controller with the module object's controller() method.
+
+    myApp.controller ("myController", myCtrl);
+
+    The above code can also be written as shown below. Doing this we are eliminating the myCtrl variable.
+
+    //Create a module with the help of angular object's module () method.
+    
+    var myApp = angular.module('myModule', []);
+
+    //Creating a controller with the help of module object's controller () method and register the controller with the module in single line
+
+    myApp.controller("myController", function ($scope){
+        $scope.name = "AngularJS";
+    });
+
+What is $scope ?
+
+    $scope is an angular object that is passed to the controller function as a parameter by the angular framework. We attach the model to the $scope object, which will then be available in the view. Within the view , we use the databinding expression to retrieve the data from the $scope object and display it.
+
+How to use the module that we created to bootstrap the angular application ?
+    Associate the module name with ng-app directive.
+
+        ng-app = "myModule"
+
+    Similarly, associate the controller using ng-controller directive.
+
+        ng-controller = "myController"
+
+Part-3 AngularJS (26th Sep 2016)
+================ ===============
+                                    Controllers In AngularJS
+                                    ------------------------
+In this we will continue our discussion on controller in angular. This is the continuation of Part-2.
+
+We will discuss 
+1. Attaching complex objects to scope object ?
+2. What happens if a controller name is mis-spelled ?
+3. What happens if a property name in binding expression is mis-spelled ?
+4. How to create module, controller and register the controller with the module all in one line ?
+
+The job of the controller is to build a model for the view to display. The controller does this by attaching the model to the scope object. The scope is not the model, it's the data that you attach to the scope object is the model.
+
+In the following example, the scope is not the model. The message property that we have attached to the scope object is the model.
+
+        myApp.controller('myController', function ($scope){
+            $scope.message = "AngularJS Tutorial";
+            // The message property that we have attached to the scope object 
+        });
+
+The view will then use the data-binding expression to retrieve the model from the scope object. This means the controller is not manipulating the DOM directly, thus keeping that clean separation between the model, view and controller. So when you are developing controllers, make sure, you are not breaking that clean separation between the model, view and the controllers. The controller should only be used for setting up the $scope object and adding behavior it.
+
+1. Attaching complex objects to scope object ?
+
+In the above snippet code, message is a simple property. You can also attach a complex object to the scope object. In the example below, we have an employee object which is complex object within 3 properties attached to model data for the view to display.
+
+        myApp.controller ('myController', function ($scope){
+            var employee = {
+                firstName: "Rama",
+                lastName: "Krishna",
+                gender: "Male"
+            };
+
+            $scope.employee = employee;
+        });
+
+Within the view, we can then retrieve the employee object's properties using binding expression and display them in the view as shown below.
+        
+        <div ng-controller = "myController">
+            <p>First Name: {{employee.firstName}}</p>
+            <p>Last Name: {{employee.lastName}}</p>
+            <p>Gender: {{employee.gender}}</p>
+        </div>
+
+2. What happens if the controller name is mis-spelled ?
+
+When the controller name is mis-spelled 2 things happen.
+    1. An error is raised. To see the error, use browser developer tools (F12)
+    2. The binding expression in the view that are in the scope of the controller will not be evaluated.
+
+    If you are using the minified version of the AngularJS script, the error
+    message may not be readable. To get readable error message,
+        1. In the developers tools, click on the link next to the error.This will lead you to a page, where you can see a much clean error message without all the encoding symbols.
+        2. Another option you have, if you are in the development environment, you may use the non-minified version of the AngularJS script, which is produced readable error message.
+
+3. What happens if a property name in the binding expression is mis-spelled ?
+
+Expression evaluation in angular is forgiving, meaning if you misspell a property name in the binding expression, angular will not report any error. It will simply return a null or undefined value.
+
+4. How to create a module, controller and register the controller with module all in one line ?
+
+    Use the method chining mechanism as shown below,
+
+        var myApp = angular
+                    .module("myModule", [])
+                    .controller("myController", function ($scope) {
+                        var employee = {
+                            firstName: "Rama",
+                            lastName: "Krishna",
+                            age: "Male"
+                        };
+
+                        $scope.employee = employee;
+                    });
+
+Part-4 AngularJS (27th Sep 2016)
+================================
+                                    Use of ng-src directive
+                                    =======================
+
+In this we will discuss the use of ng-src directive in AngularJS. Using a
+binding expression with the img src attribute in angular application results
+in 404 error, even though the image is displaying as expected.
+
+    Without angular: ( Here we are hard coding the img src attribute value )
+
+        <img src="img/flag.jpg" alt="Indian Flag" >
+
+    With angular: (Displaying image dynamically updating the img src attribute value )
+
+        <img src="{{ country.flag }}" alt="{{ country.name + ' Flag' }}" >
+
+
+    When you view the page in the browser, the country details and the image flag
+    are displayed as expected. The problem with the img src attribute is that
+    we get a 404 (ERR_FILE_NOT_FOUND) error. To see the error in the
+    developer tools.
+
+    Let's now understand the reason for the 404 error. As soon as the DOM is
+    parsed, an attempt is made to fetch the image from the server. At this
+    point, AngularJS binding expression that is specified with the src
+    attribute is not evaluated. Hence 404 error raised.
+
+How the image is displaying as expected if the image file can not be found that path ?
+
+    The reason displaying an image is because, a second request is made to
+    load the image after the binding expression that we have specified as the
+    value for the img src attribute is evaluated. So in effect there are two
+    requests made two the server to load that image.
+        
+        1. One is loaded as soon as the DOM is parsed at that point the binding expression is not evaluated. So obviously the src attribute value as invalid path and cannot found the image and will get 404 error that we see in the developer tools.
+        
+        2. After this binding expression is evaluated, we get the correct path from the model and at that point the image is loading without any error.
+
+ To fix the 404 error use the ng-src directive: ng-src attribute ensures that a request is issued only after AngularJS has evaluated the binding expression. 
+
+    <img ng-src="{{ country.flag }}" alt="{{ country.name + ' Flag' }}" >
+
+ By using this ng-src directive, we will solve two problems here.
+    1. We are not getting 404 error any more in developer tools.
+    2. Only one request is made to the server.
+
+    And let's also quickly look at this alt (alternate) attribute right here. So we are using a binding expression for the alt attribute. So this will be displayed in case of image source cannot be loaded for some reasons.
+
+
+Part-5 AngularJS                                                        (29th Sep 2016)
+================
+                                    Two Way databinding in AngularJS
+                                    ---------------------------------
+
+In this we will discuss, Two way databinding in AngularJS. Along the way we will discuss one of the very useful directive in angular ng-model.
+
+1. One of the most useful feature in AngularJS is the Two Way Data-Binding. The Two Way Data-Binding keeps the model and view in sync at all times, that is a change in the model updates the view and a change in the view updates the model.
+
+2. When the model changes the view is automatically updated. This is achieved using the data binding expression in the view.
+
+3. How about the other way round. How to keep the model up to date when the view changes. That's exactly is the purpose of ng-model directive.
+
+4. In the html below, notice the input element is decorated with ng-model directive. This ensures that whatever the value in the text box is changed, angular will automatically updates the message property of the $scope object. This means the ng-model directive automatically takes the form values and updates the model. The binding expression does the opposite, i.e., whenever the model changes the view is automatically updated.
+
+5. Because of the Two Way Data-Binding provided by angular, as you type in the text box, the value is immediately displayed on the view just below the text box. This Two Way Data-Binding feature provided by angular, eliminates the need to write any custom code to move data from the model to the view or from the view to the model.
+
+6. ng-model directive can be used within the following 3 html elements.
+    1. input    2. select    3. textarea
+
+Part-6 AngularJS                                                        (30th Sep 2016)
+================
+                                        AngularJS ng-repeat directive
+                                        -----------------------------
+
+1. How to use ng-repeat directive in Angular ?
+2. How to use nesting ng-repeat directive ?
+3. How to get the index value of the loop in angular using ng-repeat ?
+
+The ng-repeat directive is used loops through each element in collection
+array.
+
+    <div ng-repeat="(key, value) in myObj"> ... </div>
+
+The nested ng-repeat directive used loop inside loop through each element in
+collection array or an object.
+
+Finding the index of an item in the collection:
+
+    To find the index of an item in the collection use $index property.
+
+    To get the index of the parent element use 
+
+        $parent.$index  ( or ) Use ng-init="parentIndex=$index"
+
+
+Part-7 AngularJS                                (3rd Oct 2016)
+----------------
+                                    Handling events in AngularJS
+                                    ----------------------------
+
+AngularJS has its own HTML events directives.
+
+We can add AngularJS event listeners to our HTML elements by using one or more of below directives.
+
+    1. ng-blur 2. ng-change, 3. ng-click, 4. ng-copy, 5. ng-cut, 6. ng-dblclick, 7.ng-focus, 8. ng-keydonw, 9. ng-keypress, 10. ng-keyup, 11. ng-mousedown, 12. ng-mouseenter, 13. ng-mouseleave, 14. ng-mousemove, 15. ng-mouseover, 16. ng-mouseup. 17. ng-paste
+
+The event directives allows us to run AngularJS functions at certain user events.
+
+An AngularJS event will not overwrite an HTML event, both events will be executed.
+
+Mouse Events
+------------
+    Mouse events occur when the cursor moves over an element, in this order:
+    
+    ng-mouseenter
+    ng-mouseover
+    ng-mousemove
+    ng-mouseleave
+    
+    Or when a mouse button is clicked on an element, in this order:
+
+    ng-mousedown
+    ng-mouseup
+    ng-click
+    
+    You can add mouse events on any HTML element.
+
+
+Part-8 AngularJS                                            (4th Oct 2016)
+----------------
+                                    AngularJS Filters
+                                    -----------------
+We are discussing about below list of filters in AngularJS.
+    
+    1. angularjs currency filter
+    2. angularjs number filter
+    3. angularjs format filter
+    4. angularjs date filter
+    5. angularjs limitTo filter
+
+Filters can be added to expressions or a directive by using the pipe character |, followed by a filter.
+
+Syntax:
+=======
+            {{expression | filterName.parameter}}
+
+AngularJS filters for formatting data
+
+    1. lowercase - Format all characters to lower case letters.
+    2. uppercase - Format all characters to upper case letters.
+    3. number - Formats a number as text. Includes comma as thousands separator and the number of decimal places can be specified.
+    4. currency - Formats a number as currency. $ is the default one. Custom currency and decimal places can be specified.
+    5. date - Format date to a string based on the requested format.
+    6. filter - Select a subset of items from an array.
+    7. orderBy - Orders an array by an expression.
+
+    orderBy Syntax : 
+    ---------------        "expression | orderBy: 'propertyName'"
+
+    Angular Date Formats
+
+    yyyy 4 digit year. Example: 1987
+    yy 2 digit year. Example: 87.
+    MMMM January - December.
+    MMM Jan - Dec
+    MM 01 - 12
+    M 1-12 (No leading ZERO)
+    dd 01-31
+    d 1-31 (No leading ZERO)
+
+    limitTo filter: It can be used to limit the number of rows or characters in a string.
+
+    Syntax: 
+    -------         {{expression | limitTo : limit : begin}}
+
+Part - 9                                                        (14th Oct 2016)
+--------
+                        Sorting Data in AngularJS
+                        -------------------------
+In this we will discuss how to implement sorting data in AngularJS.
+
+The orderBy filter allows us to sort an array. By default, strings are sorted alphabetically and numbers are sorted numerically.
+
+To sort the data in Angular
+    1. Use orderBy filter
+
+        {{ array | orderBy : expression : reverse }}
+
+        Example: ng-repeat = "student in studentData | orderBy : 'age' : false"
+
+    2. To sort data in ascending order, set reverse to false.
+    3. To sort data in descending order, set reverse to true.
+    4. We can also use + and - symbols to sort in ascending and descending
+    order respectively.
+
+    Example: ng-repeat = "student in studentData | orderBy : '-age'"
+
+Part - 10                      (h2Angular.html)                    (14th Oct 2016)
+---------
+                        AngularJS sort rows by table header
+                        -----------------------------------
+
+Here we will implement
+1. AngularJS sort by column headers.
+2. AngularJS bidirectional sort.
+
+Part - 11                                                  (14th Oct 2016)
+---------
+                        Search filter in AngularJS
+                        --------------------------
+How to implement search the data in AngularJS using search filter.
+
+As we type in the search textbox, all the columns in the table must be searched and only the matching rows should be displayed.
+
+Example: <tr ng-repeat="student in studnets | filter: searchBoxText">
+            <td>...</td>
+         </tr>
+
+Part - 12                                                  (15th Oct 2016)
+---------
+                        Multiple Search in AngularJS using filters
+                        ------------------------------------------
+If user wants to search the data in particular column from the table using
+filters, we can write something like this
+
+<input type="text" ng-model="searchBoxText.name" />
+-----
+-----
+-----
+    <tr ng-repeat="student in students | filter: searchBoxText">
+        <td>...</td>
+    </tr>
+
+This is the single column data search in the table.
+
+If user wants to search the data in more than one column from the table using
+filters, we can write the code something like this.
+
+<input type="text" ng-model="searchBotText.name" />
+<input type="text" ng-model="searchBoxText.age" />
+-----
+-----
+-----
+    <tr ng-repeat="student in students | filter: searchBoxText">
+        <td>...</td>
+    </tr>
+
+We can write our own custom search function in AngularJS. To do this we can
+write the code something like this.
+
+<input type="text" ng-model="searchBoxText" />
+----
+----
+----
+    <tr ng-repeat="student in students | filter: searchBoxText : search">
+        <td>...</td>
+    </tr>
+
+    Here we are passing the search value either true or false from the custom
+    search function. If the value is true, rows show up else no matching to the
+    entered data and no rows to be displayed.
+
+    js:
+    --
+        $scope.search = function (item) { 
+            if ($scope.searchBoxText === undefined) {
+                return true;
+            }
+            else {
+                if ((item.name.toLowerCase().indexOf($scope.searchBoxText.name.toLowerCase()) != -1) || 
+                (item.gender.toLowerCase().indexOf($scope.searchBoxText.gender.toLowerCase()) != -1) ) {
+                    return true;
+                }
+            }
+            return false;
+        };
+
+Part - 13                                   (15th Oct 2016)
+---------
+            Create Custom Filters in AngularJS
+            ----------------------------------
+
+We took a look at some of the built-in Angular filters. The built-in filters
+cover many common use cases including formatting dates, currencies, limiting
+the number of items displayed and more. These filters are both useful and give 
+insights into how we may improve our work flow when building Angular apps.
+
+We can build our own custom filters in AngularJS with the help of angular
+object's filter () function.
+
+    // To declare a filter we pass in two parameters to app.filter
+
+    // The first parameter is the name of the filter 
+    // second is a function that will return another function that does the actual work of the filter
+
+    app.filter('myFilter', function() {
+                |
+                -----> Name of the custom filter used in html page.
+
+        // In the return function, we must pass in a single parameter which will be the data we will work on.
+        // We have the ability to support multiple other parameters that can be passed into the filter optionally
+    
+        return function(input, optional1, optional2) {
+                         |
+                         -----> Input value passing from html page.
+            var output;
+            // Do filter work here
+            return output;
+        }
+
+    });
+
+    HTML:
+    -----
+
+        <td>
+                                    ------> Name of the custom filter name passing as first parameter to the filter function.
+                                    |
+            {{employee.status | myFilter:optional1:optional2}}
+                |
+                ---> This is the input value passing into the return function.
+        </td>
