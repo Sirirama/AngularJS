@@ -1,0 +1,51 @@
+http://learn.jquery.com/about-jquery/
+http://stackoverflow.com/questions/1910794/what-is-the-difference-between-jquery-text-and-html
+http://www.jquery-tutorial.net/introduction/hello-world/
+
+1(Q). Given the following HTML:
+    <div id="expander"></div>
+
+and the following CSS:
+    div#expander {
+        height: 100px;
+        width: 100px;
+        background-color: blue
+    }
+
+Write code in jQuery to animate the #expander div.expanding it from 100px x
+100px to 200px x 200px over the course of three seconds ?
+
+A) This could be done in jQuery as follows.
+    $('div#expander').on('mouseover', function (){
+        $('#expander').animate({width: 200px, height: 200px}, 3000);
+    })
+
+    what is animate () function jQuery ?
+
+    The animate () function performs a custom animation of a set of CSS
+    properties. This method changes from one state to another state with CSS
+    styles. The CSS property value is changed gradually, to create an animated
+    effect.
+
+    Only numeric values can be animated (like margin: 30px). String values
+    cannot be animated (like background-color: red), except for the strings
+    "hide", "show" and "toggle". These values allow hiding and showing the
+    animated element.
+
+
+2(Q). Which of the two lines of code below is more efficient ? 
+
+    document.getElementById("logo");
+
+            or
+    $("#logo");
+
+A) The first line of code, which is pure JavaScript without jQuery, is more
+efficient and faster. Executing the second line of code, which is jQuery, will
+trigger a call to the JavaScript version.
+
+jQuery is built on top of JavaScript and uses its methods under the hood to
+make DOM manipulation easier, at the cost of some performance overhead. It is
+a good idea to remember that jQuery is not always better than plain old
+JavaScript. Always consider whether using jQuery is really provides a useful
+advantage for your project.
