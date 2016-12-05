@@ -2,6 +2,123 @@ http://learn.jquery.com/about-jquery/
 http://stackoverflow.com/questions/1910794/what-is-the-difference-between-jquery-text-and-html
 http://www.jquery-tutorial.net/introduction/hello-world/
 
+1. What is $(document).ready(function ()) in jQuery and when to use it ?
+A. $(document).ready (function ()) is a jQuery event. It fires as soon as the
+DOM is loaded and ready to be manipulated by script.This is earliest point in
+the page load process when the script can safely access elements in the page's
+html dom. This event is fired before all images, css, etc., are fully loaded.
+
+    The following example works fine, because the jQuery code that adds the
+    event handler (on click) to the button is inside the $(document).ready
+    (function ()) function, which ensures that the DOM is
+    fully loaded before this piece of code is executed. So the JavaScript can
+    find the button element in the DOM and adds the click event handler.
+
+        <html>
+            <head>
+                <script type="text/javascript" language="javascript">
+                    $(document).ready(function () {
+                        $("#btnClick").on ('click', function (event){
+                            alert("DOM is fully loaded in ready function");
+                        });
+                    });
+                </script>
+            </head>
+            <body>
+                <button id="btnClick">Click</button>
+            </body>
+        </html>
+
+    In the following example, we have removed $(document).ready(function ())
+    function. When you click on button now, we won't get the alert message.
+    This is because the jQuery code is present before the button element, so
+    by the time the jQuery code is executed the button element is not loaded
+    into DOM.
+
+        <html>
+            <head>
+                <script type="text/javascript" language="javascript">
+                    $("#btnClick").on ('click', function (event){
+                        alert("This script code is not available in DOM");
+                    });
+                </script>
+            </head>
+            <body>
+                <button id="btnClick">Click</button>
+            </body>
+        </html>
+
+
+    To make this example work, we have 2 options.
+    1. Place jQuery code in $(document).ready(function ())  OR
+    2. Place script code at the bottom of the page before closing the
+    [</body>] element.
+
+    $(window).load event fires when the DOM and all the content on page
+    (images, css etc) is fully loaded. Since the window load event waits for
+    images, css etc to be fully loaded, this event fires after ready event.
+
+    The following example proves the above point. When you run the page with
+    the following script, notice that the alert in ready function is displayed
+    before the alert in load function.
+
+    <script type="text/javascript">
+        $(window).load(function () {
+            alert("Window loaded");
+        });
+
+        $(document).ready(function () {
+            alert("DOM loaded and ready");
+        });
+    </script>
+
+    In most cases, the script can be run as soon as the DOM hierarchy has been
+    fully constructed. So ready () is usually the best place to write your
+    javascript code.
+
+    However, in your application there could be scenarios where you should be
+    using $(window).load() function over $(document).ready() function. For
+    example, let's say we want to display actually image dimensions ( Height &
+    Width ). To get the actually image dimensions, we will have to wait until
+    the image is fully loaded, so the jQuery code to be get the height and
+    width should be in $(window).load event.
+
+    If you use $(document).ready() function instead of $(window).load ()
+    function, the height and width will be displayed as 0.
+
+2. What are jQuery selectors ?
+    One of the most important concept in jQuery is selectors. jQuery selectors
+    allow you to select and manipulate HTML elements.
+
+    '#' indicates jQuery selector with ID's, Tag names. class names etc..
+
+    Different selectors in jQuery.
+    jQuery selectors allow you to select html elements in the DOM by
+        1. Element ID
+        2. Element Tag Name
+        3. Element Class Name
+        4. Element attribute
+        5. Element Attribute values and many more.
+
+   ID selector in jQuery
+   To find an HTML element by ID, use the jQuery #id selector.
+
+   Changes the background color of the button to yellow using #id selector
+   allow you to select html element and manipulate it and place this piece of
+   code inside $(document).ready(function ()), which ensures that the DOM is
+   fully loaded before this piece of code executed. 
+        $(document).ready(function () {
+            $('#id').css ('background-color', 'yellow');
+        });
+
+   If user wants to add multiple css properties to html id element using
+   jQuery id selector, then we follow below piece of code.
+
+        $(document).ready(function () {
+            $('#id').css({'background-color': 'yellow', 'padding': '4px',
+            'width': '90px', 'height': '30px', 'border': '2px solid red'});
+        });
+
 1(Q). Given the following HTML:
     <div id="expander"></div>
 
@@ -38,6 +155,7 @@ A) This could be done in jQuery as follows.
     document.getElementById("logo");
 
             or
+
     $("#logo");
 
 A) The first line of code, which is pure JavaScript without jQuery, is more
