@@ -20,7 +20,7 @@ What are the benefits of using AngularJS ?
 
 We will discuss directives, filters, Modules and Routes etc.. with examples.
 
-To build angular applications you only need one script file and that is angular.js.
+To build angular applications you only need one script file, that is angular.js.
 
 To get the script file visit https://angularjs.org.
 
