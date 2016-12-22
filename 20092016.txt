@@ -551,3 +551,15 @@ object's filter () function.
                 |
                 ---> This is the input value passing into the return function.
         </td>
+
+Part-16
+=======
+In this we will discuss ng-include directive in Angular.
+
+ng-include directive is used to embed an HTML page into another HTML page.
+This technique is extremely useful when you want to reuse a specific view in
+multiple pages in our application.
+
+The value of ng-include directive can be the name of the HTML page that you
+want to reuse or a property on the $scope object that points to the reusable
+HTML page.
