@@ -563,3 +563,13 @@ multiple pages in our application.
 The value of ng-include directive can be the name of the HTML page that you
 want to reuse or a property on the $scope object that points to the reusable
 HTML page.
+
+Part-21
+-------
+In this we will discuss $anchorScroll service with an example.
+
+1. $anchorScroll service is used to jump to a specified element on the page.
+2. $location service hash method appends hash (#) fragments to the URL.
+3. $anchorScroll () method reads the hash fragment in the URL and jumps to
+that element in the page.
+4. yOffset property of $anchorScroll specifies the vertical scroll-offset.
