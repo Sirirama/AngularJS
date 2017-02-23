@@ -1,0 +1,222 @@
+Syntax in JavaScript.
+=====================
+var x; // declaring a variable.
+
+x = 3 + y; // assigning a value to the variable x
+
+boo (); // Calling function with empty parameters.
+xyz (10, 20); // Calling function xyz with two parameters.
+obj.foo (); // Calling method foo of object obj.
+
+// A conditional statement.
+if (x == y) { 
+    // do something.
+}
+
+// Definition function xyz with two parameters are a, b
+function xyz (a,b) {
+return a+b;
+}
+
+Note that the three different uses of equal sign
+
+1. A single equal sign (=) is used to assign a value to a variable.
+2. A double equal sing (==) is used to compare two values.
+3. A triple equal sign (===) is used to compare two values along with the type of operands.
+
+Statements Versus Expressions.
+==============================
+To understand JavaScript's syntax, you should know that it has two major syntactic categories: Statements and Expressions.
+
+1. Statements "do things". A program is a sequence of statements, which ends with the semicolon (;), which is optional. Here is the example of the statement, which declares a variable foo. in the program.
+        var foo; // Declare a variable foo call it as a statement.
+
+2. Expression produce values. They are function arguments, the right side of an assignment. Here is the example
+
+        3 * 7; // It produce the value called it by Expression.
+        var x = 3 * 7; // Here the expression should be right side of an assignment. Calculate two values and produce some calculated value and assign it to the variable.
+
+    JavaScript has two different ways to do if-then-else as a statement:
+
+            var x = 5;
+            var y = 2;
+            if ( y >= 0) {
+                x = y;
+            } else {
+                x = -y;
+            }
+        or as an expression:
+
+            var x = y >= 0 ? y : -y; // Here the expression is the right side of single equal sign operator.
+
+            foo (7, 9); // The hole line is the statement, but the function call foo return some expected value which is called an expression.
+
+Semicolons
+==========
+    Semicolons are optional in JavaScript. Semicolons terminate statements, but not blocks. There is one case where we will see the semicolon after the block: a function expression is an expression that ends with a block.
+
+            var x = 3 * 7;
+
+            var f = function () {
+                // An anonymous function is terminates by semicolon.
+            };
+
+Variables and Assignments
+=========================
+    Variables in JavaScript are declared before they are used.
+
+        var foo;
+
+    We can declare a variable and assign a value to the variable at the same time.
+
+        var foo = "declare and assigned";
+
+        var age = 29;
+
+    We can also assign a value to the existing variable:
+        
+        var age = 24;
+
+Compound Assignment Operators
+=============================
+    There are compound assignment operators such as +=. The following two statements are equal.
+
+        x += 1;
+
+        or
+
+        x = x + 1;
+
+Primitive values Versus Objects
+===============================
+
+    1. The primitive values are booleans, numbers, strings, null and undefined.
+    2. All other values are objects.
+
+    A major difference between the two is how they are compared; each object has a unique identity and is only (strictly) equal to itself.
+
+        > var obj1 = {} // an empty object.
+        > var obj2 = {} // another empty object.
+
+        > obj1 === obj2
+        false
+
+        > obj1 === obj1
+        true
+
+    In contrast, primitive values encoding the same value are consider the same.
+
+        > var primi1 = 123;
+        > var primi2 = 123;
+
+        > primi1 === primi2
+        true
+
+        > primi1 === primi1
+        true
+
+    Primitive Values
+
+        The following are all of the primitive values.
+
+        1. Boolean : true or false
+        2. Number : 179 or 1.413
+        3. String : "abc", 'xyz'
+        4. Two 'nonvalues' : undefined and null.
+
+    Primitives have the following characteristics
+            
+        Compared by value.
+
+            The content is compared.
+            > 3 === 3
+            true
+
+            > 'abc' === 'abc'
+            true
+
+            Always immutable.
+                Properties can't be added, changed and deleted.
+
+                var str = 'abc';
+
+                > str.length = 1;  // try to changes the property length.
+                > str.length;
+                3.               // no effect.
+
+                > str.foo = 3; // try to create a new property as 'foo'
+                > str.foo     //  no effect, unknown property
+                undefined.   //   Regarding an unknown property always returns undefined.
+
+    Objects
+
+        All non-primitive values are objects. The most common kinds of objects are :
+
+        1. Plain Objects, which can be created by object literals.
+            
+            {
+                firstName: "John",
+                lastName: "Smith"
+            }
+
+            The preceding object has two properties: the value of property firstName is "John" and the value of property lastName is "Smith".
+
+        2. Arrays, which can be created by array literals.
+
+            ['apple', 'grape', 'orange']
+
+            The preceding array has three elements that can be accessed via numeric indices. For example the index of 'apple' is 0.
+
+        3. Regular Expressions, which can be created by regular expressions.
+            
+            /^a+b$/
+
+
+        Object have the following characteristics.
+
+            Compared by reference
+                Identities are compared. every value has its own identity.
+
+                > {} === {} // two different empty object.
+                false
+
+                > var obj1 = {}; // declare a variable and assign an empty object to that variable.
+                > var obj2 = obj1; // assign an obj1 identity value to the obj2 variable.
+
+                > obj1 === obj2
+                true
+
+            Mutable by default.
+                You can normally freely change, add and delete properties. For example
+
+                > var obj1 = {}; // declare a variable and assign an empty object to that variable.
+                > obj1.foo = 123; // add property 'foo'
+                > obj1.foo
+                123
+
+    undefined and null
+
+        Most of the programming languages have values denoting (indicate)
+        missing information. JavaScript has two such "nonvalues", undefined
+        and null.
+
+        undefined means "no value". Uninitialized variables are undefined.
+
+            > var foo;
+            > console.log(foo);
+            undefined
+
+        Missing parameters are undefined:
+
+            > function foo (x) { return x }
+            > console.log ( foo() );
+            undefined
+
+        If you read a nonexistent property, we get undefined.
+            
+            > var obj = {};
+            > console.log (obj.foo); // foo is nonexistent property here.
+            undefined
+
+        undefined and null have no properties, not even standard methods such
+        as toString () etc.
