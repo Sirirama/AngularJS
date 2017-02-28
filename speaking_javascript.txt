@@ -197,7 +197,7 @@ Primitive values Versus Objects
     undefined and null
 
         Most of the programming languages have values denoting (indicate)
-        missing information. JavaScript has two such "nonvalues", undefined
+        missing information. JavaScript has two such "nonvalues": undefined
         and null.
 
         undefined means "no value". Uninitialized variables are undefined.
@@ -220,3 +220,131 @@ Primitive values Versus Objects
 
         undefined and null have no properties, not even standard methods such
         as toString () etc.
+
+    Categorizing values using typeof and instanceof
+
+        There are two operators for categorizing values: typeof is mainly used
+        for primitive types, while instanceof is used for objects.
+
+        typeof looks like this
+            
+            typeof value
+
+        instanceof looks like this
+
+            value instanceof Constr
+
+        Like all primitive values, strings are immutable: you need to create a
+        new string if you change an existing one.
+
+    Variables are function scoped.
+
+        The scope of a variable is always the complete function. For example.
+
+        function abc () {
+            var x = -512;
+
+            if (x < 0) {
+                var tmp = -x; // the tmp variable scope is not ended here. It
+                is available until the function complete.
+                ...
+            }
+
+            console.log (tmp); // 512
+        }
+
+    Closures
+
+        Each function stays connected to the variables of the function that
+        surround it, even after it leaves the scope in which it was created.
+        For example:
+            
+            function createdIncrement (incr) {
+                return function () { // started function scope line 1
+                    incr++;
+                    return incr;
+                }
+            }
+
+            console.log(createdIncrement (3)); // output 4
+
+        The function starting in line 1 leaves the context in which it was
+        created, but stays connected to a live version of start.
+
+        > var inc = createdIncrement (3);
+        > console.log (inc ()); // 4
+
+        A closure is function plus the connection the variables of its
+        surrounding scopes. Thus, what createdIncrement () returns is a
+        closure.
+
+    Objects and Constructors
+
+        Single Objects
+            
+            Like values to the variables, objects have properties. You could,
+            In fact, all objects have set of properties, where each property
+            is a key/value pair. The key is a string and the value is any
+            JavaScript value.
+
+            In JavaScript, we can create object directly via object literals.
+
+            var joy = {
+                name: "Smith",
+                describe: function () {
+                    return "My name is " + this.name;
+                }
+            }
+
+            The preceding object have two properties are name and describe.
+            You can read ("get") and write ("set") the properties.
+
+            > joy.name; // get the value of name property
+            Smith
+
+            > joy.name = "Anderson"; // set the value of name property
+
+            > joy.newProperty = "New"; // We can add new property to the object
+
+            > delete joy.name; // We can delete the new property from the object.
+
+            The function valued properties such as describe are called
+            methods. They use this refer to the object that was used to call
+            them.
+
+            > joy.describe (); // My Name is Smith.
+
+            The in operator checks whether a property is exists:
+
+            > 'propertyName' in objectName;
+
+            For example
+                
+                for (prop in joy) {
+                    console.log (prop);
+                }
+
+            If you read a property that does not exist, you get the value
+            undefined.
+
+            Extracting Methods
+
+                If you extract the method, it loses the connection with the
+                object. On its own the function is not a method anymore, and
+                this has the value is undefined.
+
+                From above example, We want to extract the method describe
+                from joy object, put it into a variable func, and call it.
+                However that doesn't work.
+
+                > var func = joy.describe;
+                > func ();
+                TypeError: Can't read property 'name' undefined.
+
+                The solution is to use the bind() method that all functions
+                have. It creates a new function whose this always has the
+                given value.
+
+                > var func = joy.describe.bind(joy);
+                > func ();
+                My Name is Smith
