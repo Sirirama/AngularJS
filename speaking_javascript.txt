@@ -327,7 +327,7 @@ Primitive values Versus Objects
             If you read a property that does not exist, you get the value
             undefined.
 
-            Extracting Methods
+          => Extracting Methods
 
                 If you extract the method, it loses the connection with the
                 object. On its own the function is not a method anymore, and
@@ -348,3 +348,142 @@ Primitive values Versus Objects
                 > var func = joy.describe.bind(joy);
                 > func ();
                 My Name is Smith
+
+          => Function inside a Method
+
+                Every function has its own special variable this. This is
+                inconvenient if you nest a function inside the method, because
+                we can't access the method's this from the function.
+
+                The following is an example where we call forEach with a
+                function to iterate over an array.
+
+                var objThis = {
+                    name: "James",
+                    friends: ["Stefen", "Robot"],
+                    sayHiTo: function () {
+                        'use strict';
+                        this.friends.forEach(function (friendName){
+                        // forEach () method is not recognize this keyword
+                        // from the parent function. Here this.name is
+                        // returning undefined.
+                            console.log (this.name + ' say hi to ' + friendName);
+                        });
+                    }
+                }
+
+                > objThis.sayHiTo();
+                undefined
+
+                Let's look at two ways of fixing this. First we could store
+                this in a different variable. like
+                    var that = this;
+
+                var objThis = {
+                    name: "James",
+                    friends: ["Stefen", "Robot"],
+                    sayHiTo: function () {
+                        'use strict';
+                        var that = this;
+                        this.friends.forEach(function (friendName){
+                            console.log (that.name + ' say hi to ' + friendName);
+                        });
+                    }
+                }
+
+                > objThis.sayHiTo();
+                James say hi to Stefen
+                James say hi to Robot
+
+                Or, forEach () method has a second parameter that allows you
+                to provide a value for this.
+
+                var objThis = {
+                    name: "James",
+                    friends: ["Stefen", "Robot"],
+                    sayHiTo: function () {
+                        'use strict';
+                        this.friends.forEach (function (friendName) {
+                            console.log (this.name + " say hi to ' + friendName)
+                        }, this);
+                    }
+                }
+
+        Constructors: Factories for Objects
+
+            JavaScript objects are only maps from strings to values, a notion
+            suggested by JavaScript's object literals. However, JavaScript's
+            objects also support a feature that is truly object-oriented:
+            inheritance. Become constructors - factories for objects - if
+            invoked via the new operator. By convention, the names of
+            constructor start with capital letter. For example.
+
+                // set up instance data
+                function Point (x, y) {
+                    this.x = x;
+                    this.y = y;
+                }
+
+                // methods
+
+                Point.prototype.dist = function () {
+                    return Math.sqrt (this.x*this.x+this.y*this.y);
+                }
+
+            We can see that a constructor has two parts. First, the function
+            Point (x, y) set up instance data. Second, the property
+            Point.prototype contains an object with the method.
+
+            To use Point, to invoke it via new operator:
+
+            var p = new Point (3, 5);
+            > p.x
+            3
+
+            > p.dist ();
+            5.830951894845301
+
+            p is an instance of Point
+
+            > p instanceof Point
+            true
+
+    Arrays
+        
+        Arrays are sequence of elements that can be accessed via integer
+        indices starting at zero.
+
+        Array Literals
+
+            Array literals are handy for creating arrays:
+
+            > var arr = ['a','b','c','d','e'];
+
+            The preceding array has list of elements, that can be accessed via
+            integer indices.
+
+            > arr[0];   // access the first element of an array
+            a
+
+            > arr[arr.length-1];    // access the last element of an array.
+            e
+
+            > arr[0] = 'z';     // updating first element
+            > arr
+            ['z','b','c','d','e'];
+
+            The length property indicates how many elements an array has.
+
+            Note that arrays are object and can thus have object properties.
+
+            > var arr = [];
+            > arr.foo = "Rama";
+            > arr.foo;
+            Rama
+
+            Array Methods
+
+                Arrays have many methods.
+
+                > var arr = [1,2,3,4];
+                > arr.slice (1,2);
