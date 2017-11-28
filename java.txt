@@ -1,0 +1,88 @@
+One fundamental concept of object-oriented programming in Java is the class.
+
+When Java runs your program, the code inside of the main method is executed.
+
+The void keyword (which means "completely empty") indicates to the method that no value is returned after calling that method.
+
+Alternatively, we can use data type keywords (such as int, char, etc.) to specify that a method should return a value of that type.
+
+
+    Class: a blueprint for how a data structure should function
+
+    Constructor: instructs the class to set up the initial state of an object
+
+    Object: instance of a class that stores the state of a class
+
+    Method: set of instructions that can be called on an object
+
+    Parameter: values that can be specified when creating an object or calling a method
+
+    Return value: specifies the data type that a method will return after it runs
+
+    Inheritance: allows one class to use functionality defined in another class
+
+
+Data Structures
+===============
+import java.util.ArrayList;
+
+The first data structure will explore is called ArrayList. import java.util.ArrayList;
+
+The ArrayList stores a list of data of specified type.
+For Instance, ArrayList<Integer> quizeGrades = new ArrayList<Integer>();
+
+quizeGrade.add(2);
+quizeGrade.add(4);
+quizeGrade.add(5);
+quizeGrade.add(1);
+
+System.out.println(quizeGrade.size());
+
+// The process of going through each element in the ArrayList is called iteration.
+    
+    for(Integer grade : quizeGrade) {
+        System.out.println(grade);
+    }
+
+or
+
+    for (int i = 0; i < quizeGrade.size(); i++) {
+        // get position one by one and print the value of ArrayList elements
+        System.out.println(quizeGrade.get(i));
+    }   
+
+An element's index refers to its location within an ArrayList. ArrayList in
+Java are zero-indexed, which means that the first element in an ArrayList is
+at a position of zero (0).
+
+import java.util.HashMap;
+
+Another useful built-in data structure in Java is the HashMap.
+A HaspMap contains a set of keys and a value for each key. If you provide a HashMap with a key that exists, you can retrieve the value associated with the key.
+
+Syntax:
+=======         Declaring a HashMap in the following.
+            HashMap<String, Integer> myFriends = new HaspMap<String, Integer>();
+
+            In the above example, we create a HashMap object called myFriends.
+            The myFriends HashMap object stores keys as String data types and
+            associated values as Integer data types.
+
+            Add keys and values to a HashMap object by using put() method.
+
+            myFriends.put("Ramakrishna", 28); // key as specified String data type and associated value specified Integer number.
+            myFriends.put("Chandana", 23);
+
+            To access the data in ArrayList, we specified index. In ordered to access a value in a HashMap, we specify key:
+
+            System.out.println(myFriends.get("Chandana")); // 23
+
+Overview
+========
+
+1. For Loops: used to repeatedly run a block of code
+2. For Each Loops: a concise version of a for loop
+3. ArrayList: stores a list of data
+4. HashMap: stores keys and associated values like a dictionary
+
+            
