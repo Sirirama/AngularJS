@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+    <head>
+        <script type="text/javascript" language="javascript">
+            class Animal {
+                constructor(name,type){
+                    this.name = name;
+                    this.type = type;
+                }
+                bark() {
+                    console.log(`Bark, Bark! My name is ${this.name}`);
+                }
+                static info(){
+                    console.log(`I love practice`);
+                }
+                get nickName() {
+                    return this.name;
+                }
+                set nickName(value) {
+                    this.name = value;
+                }
+                history(){
+                    console.log(`Hello my name is ${this.name} and I'm ${this.type} type`);
+                }
+            }
+            const kingkong = new Animal('King Kong', 'Animal');
+            kingkong.bark();
+            Animal.info();
+            console.log(kingkong.nickName);
+            kingkong.nickName = 'Python';
+            kingkong.history();
+        </script>
+    </head>
+    <body>
+    </body>
+</html>
